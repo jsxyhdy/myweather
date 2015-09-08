@@ -1,0 +1,49 @@
+{% extends 'app.html' %}
+{% block content %}
+    <table id="city">
+
+    </table>
+    <table id="weather">
+
+    </table>
+    <h2>{{ city.namecn }}
+        <small>（{{ city.districtcn }} {{ city.provcn }}）</small>
+    </h2>
+    <p class="lead">经度{{ city.longitude }}，纬度{{ city.latitude }}，海拔{{ city.elevation }}</p>
+    <h2>天气预报</h2>
+
+        {% load staticfiles %}
+        {% for forecast in forecasts %}
+            {{ forecast.forecast_date }}
+            日出:{{forecast.sunraise}}, 日落:{{ forecast.sunset }}
+            <h3>白天</h3>
+            <table class="table">
+            <tr>
+                <th>天气</th>
+                <th>温度</th>
+                <th>风向</th>
+                <th>风力</th>
+            </tr>
+            <tr>
+                <td><img src="{% static "weather/icon/day/" %}{{ forecast.weather_phe_day }}.png" alt=""></td>
+                <td>{{forecast.temperature_day}}</td>
+                <td>{{forecast.weather_desc.wind_direct_day}}</td>
+                <td>{{forecast.weather_desc.wind_level_day}}</td>
+            </tr></table>
+            <h3>夜晚</h3>
+            <table class="table">
+            <tr>
+                <th>天气</th>
+                <th>温度</th>
+                <th>风向</th>
+                <th>风力</th>
+            </tr>
+            <tr>
+                <td><img src="{% static "weather/icon/night/" %}{{ forecast.weather_phe_night }}.png" alt=""></td>
+                <td>{{ forecast.temperature_night }}</td>
+                <td>{{ forecast.weather_desc.wind_direct_night}}</td>
+                <td>{{ forecast.weather_desc.wind_level_night}}</td>
+            </tr>
+            </table>
+        {% endfor %}
+{% endblock %}

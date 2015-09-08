@@ -1,0 +1,29 @@
+{% extends 'app.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-3">
+            <label for="queried_city">城市名称</label><input type="text" id="queried_city"/>
+            <ul id="querylist" class="candidate"></ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $("#queried_city").on('input', function (e) {
+            var querystr = $(this).val();
+            if (!(querystr==="")) {
+                var url = "filtercity/" + querystr;
+                $.getJSON(url, function (rst) {
+                    var query_input = $("#querylist").html("");
+                    for (k in rst) {
+                        query_input.append("<li><a href='/"+k+"'>" + rst[k] + "</a></li>");
+
+                    }
+                });
+            }
+        });
+
+
+    </script>
+{% endblock %}

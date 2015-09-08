@@ -1,0 +1,8 @@
+.candidate {
+  list-style: none;
+}
+.candidate li:hover {
+  cursor: hand;
+  background-color: blue;
+  color: #f3f3f3;
+}
